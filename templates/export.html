@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Export of: {{config.name}}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/codemirror.css') }}" type="text/css"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+    <script type="text/css" src="{{ url_for('static',filename='css/codemirror.css') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/codemirror.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/codemirror.js') }}" type="text/javascript"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='js/yaml.js') }}" type="text/javascript"/>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/yaml.js') }}"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div id="container">
+    <div class="row">
+        <div class="col-md-6 main-div">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h1>Configuration export: {{config.name}}</h1>                          
+                </div>
+                
+                <div class="card-body">
+                    <div class="form-group">
+                            <label for="date">Name of the creator:</label>
+                            <p> {{config.creator}}</p>
+                    </div>
+                    <div class="form-group">
+                            <label for="date">Date of the creation/last edition:</label>
+                            <p> {{config.date}}</p>
+                    </div>
+                    <textarea class="codee">
+{{  config.mutable  }}
+
+# ############################################### #
+# Inventory to use (immutable)                    #
+# ############################################### #
+
+# This will describe the topology of your services
+inventory: inventories/inventory.sample
+
+# ############################################### #
+# docker registry parameters (immutable)          #
+# ############################################### #
+registry:
+  type: internal
+
+# ############################################### #
+# Enos Customizations (immutable)                 #
+# ############################################### #
+enable_monitoring: no
+
+
+# ############################################### #
+# Kolla parameters (immutable)                    #
+# ############################################### #
+# Repository
+kolla_repo: "https://git.openstack.org/openstack/kolla-ansible"
+kolla_ref: "stable/ocata"
+
+# Vars : globals.yml
+kolla:
+  kolla_base_distro: ubuntu
+  kolla_install_type: source
+  docker_namespace: beyondtheclouds
+  enable_heat: no
+ 
+</textarea>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<script>
+
+ /*eslint-disable no-unused-vars */
+ $.map( $(".codee"), function(code_tag) {
+     var editor = CodeMirror.fromTextArea(code_tag, {
+         mode: {name: "yaml",
+                version: 3,
+                singleLineStringErrors: false},
+         lineNumbers: true,
+         indentUnit: 4,
+         matchBrackets: true,
+         readOnly: true
+         
+     });
+ });
+ 
+    
+</script>
+<div class="blockquote-footer">
+Copyright &copy; Juliette HUBERT & Antoine ROSON - IMTABPDLL
+</div>
+</body>
+</html>

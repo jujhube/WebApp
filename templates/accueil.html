@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Configurations</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}" type="text/css"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/theme.css') }}" type="text/css"/>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.js') }}"></script>
+</head>
+<body>
+<div id="container">
+    <div class="row">
+        <div class="col-md-10 main-div">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h1>Configurations</h1>
+                          <a href="{{url_for('nouvelle_config')}}" class="btn btn-info" role="button">Create a new configuration</a>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        {% for config in configs %}
+                        <li class="list-group-item">
+                            {{ config.name }}<i><small> last edition by <b>{{ config.creator }}</b> on <b>{{ config.date }}</b></i></small>
+                            <a href="{{url_for("edit_config", config_id = config.id)}}" class="btn btn-default float-right" role="button">Edit</a>
+                            <a href="{{url_for("delete_config", config_id = config.id)}}" class="btn btn-default float-right" role="button">Delete</a>
+                            <a href="{{url_for("export_config", config_id = config.id)}}" onclick = "window.open(this.href); return false;" class="btn btn-default float-right" role="button">Export</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<div class="card-footer">
+Copyright &copy; Juliette HUBERT & Antoine ROSON - IMTABPDLL
+</div>
+</html>
